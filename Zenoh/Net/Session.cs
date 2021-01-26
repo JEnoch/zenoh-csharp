@@ -49,19 +49,27 @@ namespace Zenoh.Net
             return properties;
         }
 
-        public void write(byte[] payload)
+        unsafe public void write(ResKey reskey, byte[] payload)
         {
-
+            Console.WriteLine("C#: write on {0}|{1} : {2}", reskey.Id(), reskey.Suffix(), BitConverter.ToString(payload));
+            fixed (byte* p = payload)
+            {
+                ZnWrite(this._rustSession, reskey._key, (IntPtr)p, (uint)payload.Length);
+            }
         }
 
-        [DllImport("zenohc", EntryPoint = "zn_config_from_str")]
-        internal static extern IntPtr ZnConfigFromStr(String str);
+        [DllImport("zenohc", EntryPoint = "zn_config_from_str", CharSet = CharSet.Ansi)]
+        internal static extern IntPtr ZnConfigFromStr([MarshalAs(UnmanagedType.LPStr)] string str);
 
         [DllImport("zenohc", EntryPoint = "zn_open")]
         internal static extern IntPtr ZnOpen(IntPtr config);
 
         [DllImport("zenohc", EntryPoint = "zn_info_as_str")]
         internal static extern ZString ZnInfoAsStr(IntPtr rustSession);
+
+        [DllImport("zenohc", EntryPoint = "zn_write")]
+        internal static extern UInt32 ZnWrite(IntPtr rustSession, ResKey.ZResKey zResKey, IntPtr payload, UInt32 len);
+
 
     }
 
