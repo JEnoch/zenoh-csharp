@@ -40,7 +40,7 @@ namespace Zenoh.Net
         public Dictionary<string, string> info()
         {
             var zstr = ZnInfoAsStr(this._rustSession);
-            var str = Types.ZStringToString(zstr);
+            var str = ZTypes.ZStringToString(zstr);
 
             // Parse the properties from the string
             var properties = str.Split(_propSeparator, StringSplitOptions.RemoveEmptyEntries)
@@ -49,6 +49,10 @@ namespace Zenoh.Net
             return properties;
         }
 
+        public void write(byte[] payload)
+        {
+
+        }
 
         [DllImport("zenohc", EntryPoint = "zn_config_from_str")]
         internal static extern IntPtr ZnConfigFromStr(String str);

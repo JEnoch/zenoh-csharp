@@ -4,10 +4,12 @@
     <PackageId>ZenohNetExamples</PackageId>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp5.0</TargetFramework>
+    <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\cs.csproj" />
+    <ProjectReference Include="..\..\Zenoh\Zenoh.csproj" />
+    <Compile Include="ZNInfo.cs" />
   </ItemGroup>
 
 </Project>

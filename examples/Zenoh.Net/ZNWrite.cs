@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using Zenoh;
 
-class ZnInfo
+class ZNWrite
 {
 
     static void Main(string[] args)
