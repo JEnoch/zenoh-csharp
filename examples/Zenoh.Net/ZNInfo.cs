@@ -19,9 +19,9 @@ class ZNInfo
             Dictionary<string, string> conf = arguments.GetConf();
 
             Console.WriteLine("Openning session..");
-            var s = Zenoh.Net.Session.open(conf);
+            var s = Zenoh.Net.Session.Open(conf);
 
-            var props = s.info();
+            var props = s.Info();
             foreach (KeyValuePair<string, string> entry in props)
             {
                 Console.WriteLine("{0} : {1}", entry.Key, entry.Value);

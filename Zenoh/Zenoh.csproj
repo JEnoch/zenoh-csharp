@@ -3,6 +3,14 @@
     <AssemblyName>Zenoh</AssemblyName>
     <PackageId>Zenoh</PackageId>
     <Version>0.5.0-beta6</Version>
+    <Authors>Julien Enoch</Authors>
+    <Description>Zenoh: Zero Overhead Pub/sub, Store/Query and Compute.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+    <PackageProjectUrl>https://github.com/eclipse-zenoh/zenoh-csharp</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/eclipse-zenoh/zenoh-csharp/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/eclipse-zenoh/zenoh-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
 
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>

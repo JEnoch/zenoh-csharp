@@ -17,13 +17,13 @@ class ZNWrite
         Dictionary<string, string> conf = arguments.GetConf();
 
         Console.WriteLine("Openning session...");
-        var s = Zenoh.Net.Session.open(conf);
+        var s = Zenoh.Net.Session.Open(conf);
 
         var rkey = Zenoh.Net.ResKey.RName("/demo/example/zenoh-csharp-write");
         byte[] payload = { 72, 101, 108, 108, 111 };
 
         Console.WriteLine("Writing Data ({0}, {1})...", rkey, payload);
-        s.write(rkey, payload);
+        s.Write(rkey, payload);
     }
 }
 

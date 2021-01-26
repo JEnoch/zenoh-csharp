@@ -18,7 +18,7 @@ namespace Zenoh.Net
             this._rustSession = rustSession;
         }
 
-        public static Session open(Dictionary<string, string> config)
+        public static Session Open(Dictionary<string, string> config)
         {
             // It's simpler to encode the config as a single string to pass it to Rust where is will be decoded
             string configStr = "";
@@ -37,7 +37,7 @@ namespace Zenoh.Net
         private static char[] _kvSeparator = { '=' };
 
 
-        public Dictionary<string, string> info()
+        public Dictionary<string, string> Info()
         {
             var zstr = ZnInfoAsStr(this._rustSession);
             var str = ZTypes.ZStringToString(zstr);
@@ -49,7 +49,7 @@ namespace Zenoh.Net
             return properties;
         }
 
-        unsafe public void write(ResKey reskey, byte[] payload)
+        unsafe public void Write(ResKey reskey, byte[] payload)
         {
             Console.WriteLine("C#: write on {0}|{1} : {2}", reskey.Id(), reskey.Suffix(), BitConverter.ToString(payload));
             fixed (byte* p = payload)
@@ -68,7 +68,7 @@ namespace Zenoh.Net
         internal static extern ZString ZnInfoAsStr(IntPtr rustSession);
 
         [DllImport("zenohc", EntryPoint = "zn_write")]
-        internal static extern UInt32 ZnWrite(IntPtr rustSession, ResKey.ZResKey zResKey, IntPtr payload, UInt32 len);
+        internal static extern Int32 ZnWrite(IntPtr rustSession, ResKey.ZResKey zResKey, IntPtr payload, UInt32 len);
 
 
     }
