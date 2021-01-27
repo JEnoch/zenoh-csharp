@@ -58,7 +58,13 @@ namespace Zenoh.Net
         {
             return Marshal.PtrToStringAnsi(this._key.suffix);
         }
-
     }
+
+    public enum CongestionControl
+    {
+        BLOCK,
+        DROP
+    }
+
 
 }

@@ -59,11 +59,24 @@ namespace Zenoh.Net
             return properties;
         }
 
+        public UInt64 DeclareResource(ResKey reskey)
+        {
+            return ZnDeclareResource(this._rustSession, reskey._key);
+        }
+
         unsafe public void Write(ResKey reskey, byte[] payload)
         {
             fixed (byte* p = payload)
             {
                 ZnWrite(this._rustSession, reskey._key, (IntPtr)p, (uint)payload.Length);
+            }
+        }
+
+        unsafe public void Write(ResKey reskey, byte[] payload, UInt32 encoding, UInt32 kind, CongestionControl congestionControl)
+        {
+            fixed (byte* p = payload)
+            {
+                ZnWriteExt(this._rustSession, reskey._key, (IntPtr)p, (uint)payload.Length, encoding, kind, congestionControl);
             }
         }
 
@@ -80,8 +93,14 @@ namespace Zenoh.Net
         [DllImport("zenohc", EntryPoint = "zn_close")]
         internal static extern void ZnClose(IntPtr /*zn_session_t*/ rustSession);
 
+        [DllImport("zenohc", EntryPoint = "zn_declare_resource")]
+        internal static extern UInt64 ZnDeclareResource(IntPtr /*zn_session_t*/ rustSession, ResKey.ZResKey zResKey);
+
         [DllImport("zenohc", EntryPoint = "zn_write")]
         internal static extern Int32 ZnWrite(IntPtr /*zn_session_t*/ rustSession, ResKey.ZResKey zResKey, IntPtr payload, UInt32 len);
+
+        [DllImport("zenohc", EntryPoint = "zn_write_ext")]
+        internal static extern Int32 ZnWriteExt(IntPtr /*zn_session_t*/ rustSession, ResKey.ZResKey zResKey, IntPtr payload, UInt32 len, UInt32 encoding, UInt32 kind, CongestionControl congestion);
 
     }
 }
