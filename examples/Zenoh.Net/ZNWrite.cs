@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Text;
 using Zenoh;
 using PowerArgs;
 
@@ -8,22 +9,30 @@ class ZNWrite
 {
     static void Main(string[] args)
     {
-        // initiate logging
-        Zenoh.Zenoh.InitLogger();
+        try
+        {
+            // initiate logging
+            Zenoh.Zenoh.InitLogger();
 
-        // arguments parsing
-        var arguments = Args.Parse<ExampleArgs>(args);
-        if (arguments == null) return;
-        Dictionary<string, string> conf = arguments.GetConf();
+            // arguments parsing
+            var arguments = Args.Parse<ExampleArgs>(args);
+            if (arguments == null) return;
+            Dictionary<string, string> conf = arguments.GetConf();
 
-        Console.WriteLine("Openning session...");
-        var s = Zenoh.Net.Session.Open(conf);
+            Console.WriteLine("Openning session...");
+            var s = Zenoh.Net.Session.Open(conf);
 
-        var rkey = Zenoh.Net.ResKey.RName("/demo/example/zenoh-csharp-write");
-        byte[] payload = { 72, 101, 108, 108, 111 };
+            var rkey = Zenoh.Net.ResKey.RName(arguments.path);
 
-        Console.WriteLine("Writing Data ({0}, {1})...", rkey, payload);
-        s.Write(rkey, payload);
+            Console.WriteLine("Writing Data ({0}, {1})...", rkey, arguments.value);
+            s.Write(rkey, Encoding.UTF8.GetBytes(arguments.value));
+
+            s.Dispose();
+        }
+        catch (ArgException)
+        {
+            Console.WriteLine(ArgUsage.GenerateUsageFromTemplate<ExampleArgs>());
+        }
     }
 }
 
@@ -45,6 +54,12 @@ public class ExampleArgs
 
     [ArgShortcut("c"), ArgDescription("A configuration file.")]
     public string config { get; set; }
+
+    [ArgShortcut("p"), ArgDefaultValue("/demo/example/zenoh-csharp-write"), ArgDescription("The name of the resource to write.")]
+    public string path { get; set; }
+
+    [ArgShortcut("v"), ArgDefaultValue("Write from C#!"), ArgDescription("The value of the resource to write.")]
+    public string value { get; set; }
 
     public Dictionary<string, string> GetConf()
     {

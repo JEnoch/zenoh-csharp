@@ -26,6 +26,8 @@ class ZNInfo
             {
                 Console.WriteLine("{0} : {1}", entry.Key, entry.Value);
             }
+
+            s.Dispose();
         }
         catch (ArgException)
         {
