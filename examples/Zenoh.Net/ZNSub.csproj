@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>ZNInfo</AssemblyName>
-    <PackageId>ZNInfo</PackageId>
+    <AssemblyName>ZNSub</AssemblyName>
+    <PackageId>ZNSub</PackageId>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp5.0</TargetFramework>
     <EnableDefaultItems>false</EnableDefaultItems>
@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Zenoh\Zenoh.csproj" />
-    <Compile Include="ZNInfo.cs" />
+    <Compile Include="ZNSub.cs" />
   </ItemGroup>
 
   <ItemGroup>

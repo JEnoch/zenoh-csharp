@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>ZenohNetExamples</AssemblyName>
-    <PackageId>ZenohNetExamples</PackageId>
+    <AssemblyName>ZNWrite</AssemblyName>
+    <PackageId>ZNWrite</PackageId>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp5.0</TargetFramework>
     <EnableDefaultItems>false</EnableDefaultItems>
